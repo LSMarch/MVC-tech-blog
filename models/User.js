@@ -14,7 +14,8 @@ User.init(
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true,
         },
         username: {
             type: DataTypes.STRING,
@@ -50,3 +51,5 @@ User.init(
         modelName: 'user',
     },    
 )
+
+module.exports = User
