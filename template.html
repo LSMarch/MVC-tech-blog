@@ -32,15 +32,35 @@
     <main>
         <div class="container">
             <div class="row">
-                <div class="card col-sm">
-                    <h4 class="card-header">Post Title</h4>
-                    <div class="card-body">                        
-                        <h6 class="card-title text-muted">Post by and Date created</h6>
-                        <p class="card-text">Some quick example text to build on the post's title and make up the bulk of the post's content.</p>
-                        <a href="#" class="card-link">Update</a>
-                        <a href="#" class="card-link">Delete</a>
+                <form class="col-6">
+                    <h3>Sign Up</h3>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">                        
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>                    
+                    <button type="submit" class="btn btn-info">Sign up</button>
+                </form>
+                <form class="col-6">
+                    <h3>Login</h3>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">                        
+                    </div>                    
+                    <div class="form-group mb-2">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>                    
+                    <button type="submit" class="btn btn-info">Login</button>
+                </form>
             </div>
         </div>
     </main>
