@@ -3,7 +3,17 @@ const  {User, Posts}  = require('../models');
 const hasAuth = require('../utils/withAuth')
 
 // Get all Posts
-// route.post('/')
+router.get('/', async (req,res) => {
+    try {
+        const blogData = await Posts.findAll()
+        const posts = blogData.map((post) => post.get({plain:true}));
+        
+        res.status(200)
+        res.render('homepage', { posts })
+    } catch (err) {
+        res.status(500).json(`uh oh`)
+    }
+})
 
 router.get('/login', async (req,res) => {
     // if (req.session.logged_in) {
