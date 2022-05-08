@@ -1,9 +1,7 @@
 const { User } = require('../../models');
-//const sequelize = require('../../config/connection')
-
 const router = require('express').Router();
 
-// Create New User
+// Signup
 router.post('/signup', async (req,res)=>{
     try {
         const existingUser = await User.findOne({
@@ -26,7 +24,6 @@ router.post('/signup', async (req,res)=>{
         res.status(400).json(err)
     }
 })
-
 // Login
 router.post('/login', async (req,res) => {
     try {
@@ -52,29 +49,14 @@ router.post('/login', async (req,res) => {
         req.session.save(() => {
             req.session.user_id = userLogin.id;
             req.session.logged_in = true;
-            res.json({ user: userLogin, message: `You're in`})
-        })
-        //res.render('loginpage')
-    } catch (err) {}
+            res.json(`Working`)
+        })        
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
-
-// router.get('/login', async (req,res) => {
-//     // if (req.session.logged_in) {
-//     //     res.redirect('/')
-//     //     return
-//     // }
-//     res.render('loginpage')
-// })
-// router.get('/signup', async (req,res) => {
-//     // if (req.session.logged_in) {
-//     //     res.redirect('/')
-//     //     return
-//     // }
-//     res.render('signUpPage')
-// })
-
 // Logout
-router.delete('/logout', async (req,res) => {
+router.post('/logout', async (req,res) => {
     if(req.session.logged_in) {
         req.session.destroy(() => {
             //204 = successful, no content
