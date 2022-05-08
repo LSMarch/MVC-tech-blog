@@ -1,9 +1,9 @@
 const signupHandler = async (event) => {
     event.preventDefault();
 
-    const username = $("#signup-username").value.trim();
-    const email = $("#signup-email").value.trim();
-    const pass = $("#signup-pass").value.trim();
+    const username = $("#signup-username").val().trim();
+    const email = $("#signup-email").val().trim();
+    const pass = $("#signup-pass").val().trim();
 
     if(username && email && pass) {
         const res = await fetch('signUpPage', {

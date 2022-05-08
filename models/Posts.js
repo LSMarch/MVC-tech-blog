@@ -12,8 +12,10 @@ Posts.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true
+            allowNull: false,            
+            primaryKey: true,
+            autoIncrement: true,
+            //defaultValue: null
         },
         title: {
             type: DataTypes.STRING,
@@ -38,3 +40,5 @@ Posts.init(
         modelName: 'posts'
     }
 )
+
+module.exports = Posts
