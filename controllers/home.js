@@ -9,15 +9,15 @@ router.get('/', async (req,res) => {
         const posts = blogData.map((post) => post.get({plain:true}));
         
         res.status(200)
-        res.render('homepage', { posts })
+        res.render('homepage', {posts})
     } catch (err) {
-        res.status(500).json(`uh oh`)
+        res.status(500).json(err)
     }
 })
 
 router.get('/login', async (req,res) => {
     if(req.session.logged_in){
-        res.redirect('homepage');
+        res.render('dashboard');
         return;
     }
     res.render('loginpage')
@@ -37,13 +37,15 @@ router.get('/dashboard', hasAuth, async (req,res) => {
             include: Posts
         });
 
-        const user = userData.get({plain: true});
+        //const userPosts = userData.map((posts) => posts.get({plain: true}));
         res.render('dashboard', {
-            ...user,
+            //...userPosts,
+            ...userData,
             logged_in: true
         })
     } catch(err) {
         res.status(500).json(err)
+        console.log(err)
     }
 })
 

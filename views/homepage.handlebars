@@ -3,7 +3,7 @@
     <h4 class="card-header">{{title}}</h4>
     <div class="card-body"> 
         {{!-- Need to make middleware to formate date --}}
-        <h6 class="card-title text-muted">{{createdAt}}</h6>
+        <h6 class="card-title text-muted">{{format_date createdAt}}</h6>
             <p class="card-text">{{description}}</p>
             <a href="#" class="card-link">Update</a>
             <a href="#" class="card-link">Delete</a>

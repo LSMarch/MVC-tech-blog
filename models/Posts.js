@@ -3,11 +3,6 @@ const sequelize = require('../config/connection');
 
 class Posts extends Model {}
 
-// title
-// date created
-// contents/description
-// user
-// leave comment??
 Posts.init(
     {
         id: {
@@ -31,7 +26,7 @@ Posts.init(
                 model: 'user',
                 key: 'id',
             },
-        }
+        },        
     },
     {
         sequelize,

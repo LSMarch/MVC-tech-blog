@@ -11,7 +11,7 @@ const loginForm = async (event) => {
             headers: {'Content-Type': 'application/json'}
         });
         if(res.ok) {
-            document.location.replace('/');
+            document.location.replace('/dashboard');
         } else {
             alert('Invalid username or password')
         }
