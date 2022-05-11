@@ -17,7 +17,7 @@ To use MVC-Tech Blog you will need to Node.js, as well as the MySQL, express, ex
 
 ### [How-To](#table-of-contents)
 [See the app in action](https://techblog--mvc.herokuapp.com/)
-To use MVC-Tech Blog check out the Heroku link, or type `node server.js` or `npm start` in the terminal.
+To use MVC-Tech Blog check out the Heroku link: username: cappyton, password: firefly. Or type `node server.js` or `npm start` in the terminal.
 
 ### [Contribution](#table-of-contents)
 Pull requests are welcome! For any major changes please open an issue.
