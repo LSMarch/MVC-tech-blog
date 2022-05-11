@@ -17,7 +17,7 @@ router.get('/', async (req,res) => {
 
 router.get('/login', async (req,res) => {
     if(req.session.logged_in){
-        res.render('dashboard');
+        res.redirect('/dashboard');
         return;
     }
     res.render('loginpage')
@@ -32,21 +32,22 @@ router.get('/signup', async (req,res) => {
 })
 
 router.get('/dashboard', hasAuth, async (req,res) => {
-    try {
-        const userData = await User.findByPk(req.session.user_id, {
-            include: Posts
-        });
+    if(req.session.logged_in)
+{try {
+    const userData = await User.findByPk(req.session.user_id, {
+        include: [{model: Posts}]
+    });
 
-        //const userPosts = userData.map((posts) => posts.get({plain: true}));
-        res.render('dashboard', {
-            //...userPosts,
-            ...userData,
-            logged_in: true
-        })
-    } catch(err) {
-        res.status(500).json(err)
-        console.log(err)
-    }
+    const userPosts = userData.get({plain: true})
+    res.render('dashboard', {
+        ...userPosts,
+        //...userData,
+        logged_in: true
+    })
+} catch(err) {
+    res.status(500).json(err)
+    console.log(err)
+}}
 })
 
 module.exports = router;
