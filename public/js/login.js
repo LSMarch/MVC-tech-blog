@@ -11,14 +11,11 @@ const loginForm = async (event) => {
             headers: {'Content-Type': 'application/json'}
         });
         if(response.ok) {
-            document.location.replace('/dashboard');
-            //console.log('kickass')
-            //console.log(err)
+            document.location.replace('/dashboard');           
         } else {
             alert('Invalid username or password')
         }
-    }
-    //console.log(`I'm in`)
+    }    
 }
 $("#loginForm").on('submit', loginForm)
 $("#toSignup").on('click', () => {
