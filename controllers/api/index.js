@@ -1,13 +1,8 @@
 const router = require('express').Router();
-//const { Model } = require('sequelize/types');
-const userRoute = require('./user');
-const postsRoute = require('./posts')
-const commentsRoute = require('./comments')
-const dashboardRoute = require('./dashboard')
+const signupRoutes = require('./signupRoutes');
+const loginRoutes = require('./loginRoutes');
 
-router.use('/dashboard', dashboardRoute)
-router.use('/comment', commentsRoute)
-router.use('/post', postsRoute)
-router.use('/user', userRoute)
+router.use('/signup', signupRoutes);
+router.use('/login', loginRoutes);
 
-module.exports = router
+module.exports = router;

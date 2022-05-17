@@ -1,62 +1,55 @@
-const { Model, DataTypes } = require('sequelize');
-const bcrypt = require ('bcrypt');
+const {Model, DataTypes} = require('sequelize');
+const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
-class User extends Model {
+class Users extends Model {
     checkPassword(loginPass) {
-        // loading password from db, comparing to user input, returning password/allow login if true
         return bcrypt.compareSync(loginPass, this.password);
-    }
-}
+    };
+};
 
-User.init(
+Users.init(
     {
-        id: {
+        id:{
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
             autoIncrement: true,
+            primaryKey: true,
         },
-        username: {
+        username:{
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
-        email: {
+        email:{
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
             validate: {
                 isEmail: true
-            },
+            }
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 len: [8]
-            },
+            }
         },
-        // post_id: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: 'posts',
-        //         key: 'id',
-        //     },
-        // },
     },
     {
-        hooks: {
-            // before new user is created, grab user password, hash it, then return it.
-            async beforeCreate(newUser) {
+        hooks:{
+            beforeCreate: async (newUser) => {
                 newUser.password = await bcrypt.hash(newUser.password, 10);
-                return newUser;
+                return newUser
             },
         },
         sequelize,
         timestamps: true,
         freezeTableName: true,
-        modelName: 'user',
-    },    
-)
+        modelName: 'users'
+    }
+);
 
-module.exports = User
+module.exports = Users
