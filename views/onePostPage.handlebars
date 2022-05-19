@@ -1,0 +1,23 @@
+<div class="row">
+    
+    <div class="card post-card" style="width: 18rem;">
+        <div class="card-header post-title">
+            {{onePost.title}}
+        </div>
+        <div class="card-body">
+            {{!-- <h6 class="card-subtitle mb-2 text-muted">{{topic}}</h6> --}}
+            <p class="card-text">{{onePost.contents}}</p>            
+            <a href="posts/{{onePost.id}}">View Post</a>
+        </div>
+    </div>
+    {{#each onePost.comments as |comments|}}
+<div class="card post-card" style="width: 30rem;">
+    <div class="card-header">
+    Posted By: {{user.user_name}} on {{comments.createdAt}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-text comment-text">{{comments.contents}}</h5>
+  </div>
+</div>
+{{/each}}
+</div>
