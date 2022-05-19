@@ -5,10 +5,10 @@ const {Users, Posts, Comments} = require('../../models');
 // Find all posts
 router.get('/', async (req,res) => {
     try {
-        const postData = await Posts.findAll()
+        const postData = await Posts.findAll({include: Users})
         const posts = postData.map((post) => post.get({plain:true}));
-        //res.status(200).json({posts})
-        res.render('homePage', {posts})
+        res.status(200).json({posts})
+        //res.render('homePage', {posts})
     } catch(err) {
         res.status(500).json(err)
     }
@@ -16,17 +16,16 @@ router.get('/', async (req,res) => {
 
 // Find post by id
 router.get('/:id', async (req,res) => {
-    try {
+    try {        
         const post = await Posts.findByPk(req.params.id, {
-            include:[
-                {
-                    model: Comments,
-                    include: Users                   
-                }
-            ]
+            include: { 
+                model: Comments,
+                model: Users
+            }   
         });
         const onePost = post.get({plain:true});
-        res.status(200).json({onePost})
+        res.status(200).json({onePost});
+        //res.render('onePostPage', {onePost})
     } catch(err) {
         res.status(400).json(err)
     }
@@ -36,7 +35,9 @@ router.get('/:id', async (req,res) => {
 router.post('/', async (req,res) => {
     try {
         const post = await Posts.create({
-            ...req.body,
+            //...req.body,
+            title: req.body.title,
+            contents: req.body.contents,
             user_id: req.session.user_id
         });
         res.status(200).json(post)

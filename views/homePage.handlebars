@@ -7,7 +7,9 @@
         <div class="card-body">
             {{!-- <h6 class="card-subtitle mb-2 text-muted">{{topic}}</h6> --}}
             <p class="card-text">{{contents}}</p>
-            <p class="card-text">{{Users.username}}</p>
+            {{#each  posts.users as |users| }}
+            <p class="card-text">{{users.username}}</p>
+            {{/each}}
             <a href="posts/{{id}}">View Post</a>
         </div>
     </div>

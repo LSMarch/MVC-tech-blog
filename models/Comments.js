@@ -18,7 +18,7 @@ Comments.init(
                 len: [1,140]
             }
         },
-        users_id: {
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
