@@ -6,10 +6,7 @@
         </div>
         <div class="card-body">
             {{!-- <h6 class="card-subtitle mb-2 text-muted">{{topic}}</h6> --}}
-            <p class="card-text">{{contents}}</p>
-            {{#each  posts.users as |users| }}
-            <p class="card-text">{{users.username}}</p>
-            {{/each}}
+            <p class="card-text">{{contents}}</p>           
             <a href="posts/{{id}}">View Post</a>
         </div>
     </div>

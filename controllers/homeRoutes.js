@@ -22,15 +22,14 @@ router.get('/', async (req,res) => {
     }
 });
 
-
-
 router.get('/login', (req,res) => {
     if(req.session.logged_in) {
         // res.status(200).json('insert homepage here');
-        res.render('loginPage')
+        res.render('homepage')
         return;
+    } else {
+        res.render('loginPage')
     }
-    res.status(400).json('insert login page here')
 });
 
 router.get('/signup', (req,res) => {
@@ -41,20 +40,5 @@ router.get('/signup', (req,res) => {
         res.status(500).json(err)
     }
 })
-
-
-
-// router.get('/', hasAuth, async (req,res) => {
-//     try {
-//         if(logged_in) {
-//         //logged_in = req.session.logged_in;
-//         res.status(200).json('insert dashboard here')
-//         return;
-//         }
-//         res.status(400).json('not logged in, insert homepage here')
-//     } catch(err) {
-//         res.status(500).json(err)
-//     }
-// })
 
 module.exports = router

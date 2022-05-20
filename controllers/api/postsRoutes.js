@@ -1,21 +1,22 @@
 const router = require('express').Router();
 const {Users, Posts, Comments} = require('../../models');
+const hasAuth = require('../../utils/withAuth');
 //const { post } = require('./signupRoutes');
 
-// Find all posts
-router.get('/', async (req,res) => {
-    try {
-        const postData = await Posts.findAll({include: Users})
-        const posts = postData.map((post) => post.get({plain:true}));
-        res.status(200).json({posts})
-        //res.render('homePage', {posts})
-    } catch(err) {
-        res.status(500).json(err)
-    }
-})
+// // Find all posts
+// router.get('/', async (req,res) => {
+//     try {
+//         const postData = await Posts.findAll({include: Users})
+//         const posts = postData.map((post) => post.get({plain:true}));
+//         //res.status(200).json({posts})
+//         res.render('homePage', {posts})
+//     } catch(err) {
+//         res.status(500).json(err)
+//     }
+// })
 
 // Find post by id
-router.get('/:id', async (req,res) => {
+router.get('/:id', hasAuth, async (req,res) => {
     try {        
         const post = await Posts.findByPk(req.params.id, {
             include: [{
@@ -24,15 +25,15 @@ router.get('/:id', async (req,res) => {
             }]   
         });
         const onePost = post.get({plain:true});
-        res.status(200).json({onePost});
-        //res.render('onePostPage', {onePost})
+        //res.status(200).json({onePost});
+        res.render('onePostPage', {onePost})
     } catch(err) {
         res.status(400).json(err)
     }
 })
 
 // Create post
-router.post('/', async (req,res) => {
+router.post('/', hasAuth, async (req,res) => {
     try {
         const post = await Posts.create({
             //...req.body,
@@ -48,7 +49,7 @@ router.post('/', async (req,res) => {
 })
 
 // Create comment
-router.post('/:id', async (req,res) => {
+router.post('/:id', hasAuth, async (req,res) => {
     try {
         const post = await Comments.create({
             ...req.body,
@@ -62,7 +63,7 @@ router.post('/:id', async (req,res) => {
 })
 
 // Update post
-router.put('/:id', async (req,res) => {
+router.put('/:id', hasAuth, async (req,res) => {
     try {
         const post = await Posts.update(
             {
@@ -80,7 +81,8 @@ router.put('/:id', async (req,res) => {
     }
 });
 
-router.delete('/:id', async (req,res) => {
+// Delete post
+router.delete('/:id', hasAuth, async (req,res) => {
     try {
         const post = await Posts.destroy(
             {

@@ -13,7 +13,7 @@
     {{#each onePost.comments as |comments|}}
 <div class="card post-card" style="width: 30rem;">
     <div class="card-header">
-    Posted By: {{user.user_name}} on {{comments.createdAt}}
+    Posted By: {{comments.user.username}} on {{comments.createdAt}}
   </div>
   <div class="card-body">
     <h5 class="card-text comment-text">{{comments.contents}}</h5>
