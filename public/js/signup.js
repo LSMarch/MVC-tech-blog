@@ -1,16 +1,31 @@
 let errorMessage = $('#error-msg')
 
+
+
 const signUpHandler = async (event) => {
     event.preventDefault();
-    const username = $('#signup-username').val().trim();
+    const user_name = $('#signup-username').val().trim();
     const email = $('#signup-email').val().trim();
-    const password = $('#signup-password').val().trim();    
+    const password = $('#signup-password').val().trim();
   
-    // if first name, lastname, username, email, and password entered   
-    if(username && email && password) {
-        const response = await fetch('/api/signup', {
+    // if username, email, and password entered
+    if (user_name == "") {
+        $('#signup-username').attr("style", "border-color: red;")
+        $('#signup-username').attr("placeholder", "Please enter a username")
+    } 
+    if (email == "") {
+        $('#signup-email').attr("style", "border-color: red;")
+        $('#signup-email').attr("placeholder", "Please enter a valid email")
+    } 
+    if (password.length < 6) {
+        $('#signup-password').attr("style", "border-color: red;")
+        $('#signup-password').attr("placeholder", "Please enter a valid password with a minimum of six characters")
+    } 
+   
+    if(user_name && email && password) {
+        const response = await fetch('/api/user/signup', {
             method: 'POST',
-            body: JSON.stringify({username, email, password}),
+            body: JSON.stringify({ user_name, email, password  }),
             headers: {'Content-Type': 'application/json'},
         });
 
@@ -21,7 +36,7 @@ const signUpHandler = async (event) => {
             }
         if(response.ok){
             //replaces current page with home page
-            document.location.replace('/');
+            document.location.replace('/api/user/login');
         } else {
             errorMessage.text('Email or username already exist in our database. Try another email and username.')
             return $('error-div').append(errorMessage)
@@ -31,5 +46,5 @@ const signUpHandler = async (event) => {
 $('#signup-form').on('submit', signUpHandler)
 
 $('#loginBtn').on('click', () => {
-    document.location.replace('/login')
+    document.location.replace('/api/user/login')
 });

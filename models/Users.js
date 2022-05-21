@@ -1,55 +1,60 @@
-const {Model, DataTypes} = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class Users extends Model {
-    checkPassword(loginPass) {
-        return bcrypt.compareSync(loginPass, this.password);
-    };
-};
+      checkPassword(loginPw) {
+        return bcrypt.compareSync(loginPw, this.password);
+      }
+}
 
 Users.init(
     {
-        id:{
+
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
-            primaryKey: true,
+            primaryKey: true
         },
-        username:{
+        username: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
+            allowNull: false
         },
-        email:{
+        email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true
+                isEmail: true,
             }
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
             validate: {
-                len: [8]
+                len: [6],
             }
         },
+
     },
     {
-        hooks:{
-            beforeCreate: async (newUser) => {
-                newUser.password = await bcrypt.hash(newUser.password, 10);
-                return newUser
+        hooks: {
+            beforeCreate: async (newUserData) => {
+                newUserData.password = await bcrypt.hash(newUserData.password, 10);
+                return newUserData;
+            },
+            beforeUpdate: async (updatedUserData) => {
+                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+                return updatedUserData;
             },
         },
         sequelize,
         timestamps: true,
         freezeTableName: true,
-        modelName: 'users'
+        underscored: false,
+        modelName: 'users',
     }
-);
+)
 
-module.exports = Users
+module.exports = Users;
